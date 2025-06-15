@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt.android)
+    alias(libs.plugins.serialization)
 }
 
 android {
@@ -52,7 +54,6 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 
-
     implementation(libs.retrofit)
     implementation(libs.moshi.kotlin)
     implementation(libs.retrofit.converter.moshi)
@@ -61,7 +62,7 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
 
     implementation(libs.androidx.compose.material.iconsExtended)
-
+    implementation(libs.logging.interceptor)
     testImplementation(libs.junit)
     debugImplementation(libs.leakcanary)
     androidTestImplementation(libs.androidx.junit)

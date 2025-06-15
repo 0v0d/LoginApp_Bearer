@@ -1,4 +1,4 @@
-package com.example.loginapp_bearer
+package com.example.loginapp_bearer.screen.components
 
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons

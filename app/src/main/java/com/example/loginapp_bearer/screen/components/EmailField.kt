@@ -1,4 +1,4 @@
-package com.example.loginapp_bearer
+package com.example.loginapp_bearer.screen.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
