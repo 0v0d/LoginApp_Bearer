@@ -20,19 +20,19 @@ fun AppNavigation(
 
     NavHost(
         navController,
-        startDestination = Login,
+        startDestination = Destination.Login,
         modifier = modifier
     ) {
-        composable<Login> {
+        composable<Destination.Login> {
             LoginScreen(
                 viewModel = viewModel,
                 onNavigateToHome = { userName ->
-                    navController.navigateSingleTop(Home(userName = userName))
+                    navController.navigateSingleTop(Destination.Home(userName = userName))
                 }
             )
         }
-        composable<Home> { backStackEntry ->
-            val home: Home = backStackEntry.toRoute()
+        composable<Destination.Home> { backStackEntry ->
+            val home: Destination.Home = backStackEntry.toRoute()
             HomeScreen(userName = home.userName)
         }
     }
