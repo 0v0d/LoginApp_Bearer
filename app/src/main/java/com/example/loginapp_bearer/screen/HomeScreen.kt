@@ -21,7 +21,6 @@ fun HomeScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text("ようこそ $userName さん")
-
         }
     }
 }
