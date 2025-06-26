@@ -17,7 +17,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.loginapp_bearer.screen.components.EmailField
 import com.example.loginapp_bearer.screen.components.PasswordField
 import com.example.loginapp_bearer.viewmodel.AuthViewModel
@@ -37,12 +37,12 @@ fun LoginScreen(
     viewModel: AuthViewModel,
     onNavigateToHome: (String) -> Unit,
 ) {
-    val authFormState by viewModel.authFormState.collectAsState()
+    val authFormState by viewModel.authFormState.collectAsStateWithLifecycle()
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
-    val isLogin by viewModel.isLogin.collectAsState()
-    val userInfo by viewModel.userInfo.collectAsState()
+    val isLogin by viewModel.isLogin.collectAsStateWithLifecycle()
+    val userInfo by viewModel.userInfo.collectAsStateWithLifecycle()
 
     LaunchedEffect(isLogin) {
         if (isLogin) {
