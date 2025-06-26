@@ -19,25 +19,22 @@ class AuthRepositoryImpl @Inject constructor(
     private val tokenManager: TokenManager
 ) : AuthRepository {
 
-    override suspend fun logIn(email: String, password: String) {
+    override suspend fun logIn(email: String, password: String) =
         withContext(Dispatchers.IO) {
             try {
                 tokenManager.clearToken()
-                val res = todoApi.login(LoginRequest(email, password))
-
-                if (res.isSuccessful) {
-                    res.body()?.token?.let {
+                val response = todoApi.login(LoginRequest(email, password))
+                if (response.isSuccessful) {
+                    response.body()?.token?.let {
                         tokenManager.saveToken(it)
                     } ?: throw Exception("トークンが取得できませんでした")
                 } else {
-                    throw Exception("ログインに失敗しました: ${res.code()}")
+                    throw Exception("ログインに失敗しました: ${response.code()}")
                 }
             } catch (e: Exception) {
-                Log.e("RepositoryImpl", e.toString())
                 throw e
             }
         }
-    }
 
     override suspend fun getCurrentUser(): User? = withContext(Dispatchers.IO) {
         return@withContext try {
@@ -53,7 +50,6 @@ class AuthRepositoryImpl @Inject constructor(
             } else {
                 null
             }
-
         } catch (e: Exception) {
             throw e
         }
