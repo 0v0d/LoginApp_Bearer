@@ -42,7 +42,6 @@ class AuthViewModel @Inject constructor(
                 _isLogin.value = true
             } catch (e: Exception) {
                 _isLogin.value = false
-                throw e
             }
         }
     }
@@ -54,7 +53,6 @@ class AuthViewModel @Inject constructor(
                 _userInfo.value = user
             } catch (e: Exception) {
                 _userInfo.value = null
-                throw e
             }
         }
     }
