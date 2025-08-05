@@ -27,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.loginapp_bearer.model.LoginRequest
 import com.example.loginapp_bearer.screen.components.EmailField
 import com.example.loginapp_bearer.screen.components.PasswordField
 import com.example.loginapp_bearer.viewmodel.AuthViewModel
@@ -104,7 +105,12 @@ fun LoginScreen(
             }
             Button(
                 onClick = {
-                    viewModel.login(email, password)
+                    viewModel.login(
+                        loginRequest = LoginRequest(
+                            email = email,
+                            password = password
+                        )
+                    )
                 },
                 modifier = Modifier
                     .fillMaxWidth()

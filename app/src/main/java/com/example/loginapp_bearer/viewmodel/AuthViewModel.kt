@@ -2,9 +2,10 @@ package com.example.loginapp_bearer.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.loginapp_bearer.state.AuthFormState
+import com.example.loginapp_bearer.model.LoginRequest
 import com.example.loginapp_bearer.model.User
 import com.example.loginapp_bearer.repository.AuthRepository
+import com.example.loginapp_bearer.state.AuthFormState
 import com.example.loginapp_bearer.utils.AuthValidator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,19 +27,21 @@ class AuthViewModel @Inject constructor(
     private val _authFormState = MutableStateFlow(AuthFormState())
     val authFormState = _authFormState.asStateFlow()
 
-    fun login(email: String, password: String) {
+    fun login(loginRequest: LoginRequest) {
         viewModelScope.launch {
             try {
                 val validationResult = AuthValidator.validate(
-                    email,
-                    password
+                    loginRequest.email,
+                    loginRequest.password
                 )
                 if (validationResult != AuthFormState()) {
                     _authFormState.value = validationResult
                     return@launch
                 }
 
-                repository.logIn(email = email, password = password)
+                repository.logIn(
+                    loginRequest = loginRequest
+                )
                 _isLogin.value = true
             } catch (e: Exception) {
                 _isLogin.value = false

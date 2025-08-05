@@ -1,6 +1,5 @@
 package com.example.loginapp_bearer.repository
 
-import android.util.Log
 import com.example.loginapp_bearer.api.TodoAPI
 import com.example.loginapp_bearer.manager.TokenManager
 import com.example.loginapp_bearer.model.LoginRequest
@@ -10,7 +9,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 interface AuthRepository {
-    suspend fun logIn(email: String, password: String)
+    suspend fun logIn(loginRequest: LoginRequest)
     suspend fun getCurrentUser(): User?
 }
 
@@ -19,11 +18,12 @@ class AuthRepositoryImpl @Inject constructor(
     private val tokenManager: TokenManager
 ) : AuthRepository {
 
-    override suspend fun logIn(email: String, password: String) =
+    override suspend fun logIn(loginRequest: LoginRequest) =
         withContext(Dispatchers.IO) {
             try {
                 tokenManager.clearToken()
-                val response = todoApi.login(LoginRequest(email, password))
+                val response =
+                    todoApi.login(loginRequest)
                 if (response.isSuccessful) {
                     response.body()?.token?.let {
                         tokenManager.saveToken(it)
